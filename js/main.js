@@ -297,7 +297,7 @@ function inicializa() {
 
   //Creamos enemigos
   enemigo.push(new malo(3, 3));
-  enemigo.push(new malo(5, 7));
+  enemigo.push(new malo(9, 1));
   enemigo.push(new malo(7, 7));
 
   //LECTURA DEL TECLADO
