@@ -11,10 +11,12 @@ let tierra = "#c6892f";
 let llave = "#c6bc00";
 let protagonista;
 let enemigo = [];
+let antorchas = [];
 
 let tileMap;
 let imagenAntorcha;
-let escenario = [
+let messages = document.querySelector(".messages");
+const escenario1 = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 0, 2, 2, 0],
   [0, 0, 2, 2, 2, 2, 2, 0, 0, 2, 0, 0, 2, 0, 0],
@@ -27,27 +29,47 @@ let escenario = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-let messages = document.querySelector(".messages");
-let victoriaPrimerEscenario = false;
-let escenario2 = [
+const escenario2 = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 0],
-  [0, 0, 2, 2, 2, 2, 2, 0, 0, 2, 0, 0, 2, 0, 0],
-  [0, 0, 2, 0, 0, 0, 2, 2, 0, 2, 2, 2, 2, 0, 0],
-  [0, 0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0],
-  [0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0],
+  [0, 2, 0, 0, 2, 0, 2, 2, 2, 2, 0, 0, 2, 1, 0],
+  [0, 2, 2, 2, 2, 0, 0, 0, 0, 2, 0, 0, 2, 2, 0],
+  [0, 0, 0, 0, 2, 0, 2, 2, 2, 2, 2, 2, 0, 2, 0],
+  [0, 2, 2, 2, 2, 0, 0, 2, 2, 0, 0, 2, 0, 2, 0],
+  [0, 2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0],
   [0, 0, 2, 0, 0, 0, 2, 2, 2, 0, 0, 2, 2, 2, 0],
-  [0, 2, 2, 2, 0, 0, 2, 0, 0, 0, 1, 0, 0, 2, 0],
-  [0, 2, 2, 3, 0, 0, 2, 0, 0, 2, 2, 2, 2, 2, 0],
+  [0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 0],
+  [0, 0, 2, 2, 2, 2, 3, 0, 0, 2, 2, 2, 2, 2, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
-
+const escenario3 = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+  [0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0],
+  [0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 2, 0],
+  [0, 2, 2, 2, 2, 0, 1, 2, 2, 0, 2, 2, 0, 2, 0],
+  [0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0],
+  [0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+  [0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 0, 0],
+  [0, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
+const escenario4 = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 2, 2, 2, 2, 2, 0, 0, 2, 0, 0, 2, 2, 2, 0],
+  [0, 2, 2, 2, 0, 2, 0, 2, 2, 0, 2, 2, 0, 2, 0],
+  [0, 0, 2, 0, 0, 2, 0, 2, 2, 0, 0, 2, 0, 2, 0],
+  [0, 0, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0],
+  [0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0],
+  [0, 0, 2, 2, 2, 2, 2, 2, 0, 2, 2, 0, 0, 2, 0],
+  [0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 3, 0],
+  [0, 0, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
+let escenario = escenario3;
 function dibujaEscenario() {
   for (y = 0; y < 10; y++) {
     for (x = 0; x < 15; x++) {
       let tile = escenario[y][x];
-      // ctx.fillStyle = color;
-      // ctx.fillRect(x * anchoF, y * altoF, anchoF, altoF);
       ctx.drawImage(
         tileMap,
         tile * 32,
@@ -101,7 +123,6 @@ let antorcha = function (x, y) {
 let malo = function (x, y) {
   this.x = x;
   this.y = y;
-  console.log("enemigo creado");
 
   this.direccion = Math.floor(Math.random() * 4);
   // retraso de 50 fotogramas para que el enemigo no se mueve tan rapido
@@ -177,6 +198,14 @@ let malo = function (x, y) {
 let jugador = function () {
   this.x = 1;
   this.y = 1;
+  if (escenario === escenario3) {
+    this.x = 1;
+    this.y = 8;
+  }
+  if (escenario === escenario4) {
+    this.x = 7;
+    this.y = 6;
+  }
 
   this.color = "#820c01";
   // no tiene llave de inicio
@@ -242,23 +271,57 @@ let jugador = function () {
   };
 
   this.victoria = function () {
-    messages.innerHTML = "Has ganado!!";
-    console.log("Has ganado");
-    this.x = 1;
-    this.y = 1;
-    this.llave = false;
-    escenario[8][3] = 3;
-    // victoriaPrimerEscenario = true;
-    // escenario = escenario2;
+    if (escenario === escenario1) {
+      messages.innerHTML = "Tu viaje continúa";
+      this.x = 1;
+      this.y = 1;
+      escenario = escenario2;
+    } else if (escenario === escenario2) {
+      messages.innerHTML = "Tu viaje continúa";
+      this.x = 1;
+      this.y = 1;
+      escenario = escenario3;
+    } else if (escenario === escenario3) {
+      messages.innerHTML = "Tu viaje continúa";
+      this.x = 1;
+      this.y = 1;
+      escenario = escenario4;
+    } else if (escenario === escenario4) {
+      messages.innerHTML = "Has ganado!!";
+      this.x = 1;
+      this.y = 1;
+      this.llave = false;
+      escenario[8][6] = 3;
+      escenario = escenario4;
+    }
   };
 
   this.muerte = function () {
-    messages.innerHTML = "Has perdido";
-    console.log("Has perdido");
-    this.x = 1;
-    this.y = 1;
-    this.llave = false; // el jugador pierde la llave
-    escenario[8][3] = 3; // la llave vuelve a su sitio
+    if (escenario === escenario1) {
+      messages.innerHTML = "Has perdido";
+      this.x = 1;
+      this.y = 1;
+      this.llave = false; // el jugador pierde la llave
+      escenario[8][3] = 3; // la llave vuelve a su sitio
+    } else if (escenario === escenario2) {
+      messages.innerHTML = "Has perdido";
+      this.x = 1;
+      this.y = 1;
+      this.llave = false;
+      escenario[8][6] = 3;
+    } else if (escenario === escenario3) {
+      messages.innerHTML = "Has perdido";
+      this.x = 1;
+      this.y = 8;
+      this.llave = false;
+      escenario[1][1] = 3;
+    } else if (escenario === escenario4) {
+      messages.innerHTML = "Has perdido";
+      this.x = 7;
+      this.y = 6;
+      this.llave = false;
+      escenario[7][13] = 3;
+    }
   };
 
   // mirar si hay algo donde esta el protagonista
@@ -269,7 +332,6 @@ let jugador = function () {
       this.llave = true;
       escenario[this.y][this.x] = 2;
       messages.innerHTML = "Has obtenido la llave";
-      console.log("Has obtenido la llave!!");
     }
     // Abrimos la puerta
     if (objeto === 1) {
@@ -277,7 +339,6 @@ let jugador = function () {
         this.victoria();
       } else {
         messages.innerHTML = "Te falta la llave, no puedes pasar";
-        console.log("Te falta la llave, no puedes pasar");
       }
     }
   };
@@ -292,13 +353,29 @@ function inicializa() {
   //CREAMOS AL JUGADOR
   protagonista = new jugador();
 
-  // creamos antorcha
-  imagenAntorcha = new antorcha(0, 0);
+  // creamos antorchas
+  antorchas.push(new antorcha(0, 0));
+  antorchas.push(new antorcha(14, 0));
+  antorchas.push(new antorcha(14, 9));
+  antorchas.push(new antorcha(0, 9));
 
   //Creamos enemigos
-  enemigo.push(new malo(3, 3));
-  enemigo.push(new malo(9, 1));
-  enemigo.push(new malo(7, 7));
+  if (escenario === escenario1 || escenario === escenario2) {
+    enemigo.push(new malo(3, 3));
+    enemigo.push(new malo(9, 1));
+    enemigo.push(new malo(7, 7));
+  } else if (escenario === escenario3) {
+    enemigo.push(new malo(4, 4));
+    enemigo.push(new malo(2, 2));
+    enemigo.push(new malo(7, 7));
+    enemigo.push(new malo(8, 3));
+  } else if (escenario === escenario4) {
+    enemigo.push(new malo(4, 4)); 
+    enemigo.push(new malo(2, 2));
+    enemigo.push(new malo(4, 8));
+    enemigo.push(new malo(10, 4));
+    enemigo.push(new malo(10, 6));
+  }
 
   //LECTURA DEL TECLADO
   document.addEventListener("keydown", function (tecla) {
@@ -332,10 +409,12 @@ function borraCanvas() {
 function principal() {
   borraCanvas();
   dibujaEscenario();
-  imagenAntorcha.dibuja();
   protagonista.dibuja();
   for (c = 0; c < enemigo.length; c++) {
     enemigo[c].mueve();
     enemigo[c].dibuja();
+  }
+  for (c = 0; c < antorchas.length; c++) {
+    antorchas[c].dibuja();
   }
 }
