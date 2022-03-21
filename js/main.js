@@ -65,7 +65,7 @@ const escenario4 = [
   [0, 0, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
-let escenario = escenario3;
+let escenario = escenario1;
 function dibujaEscenario() {
   for (y = 0; y < 10; y++) {
     for (x = 0; x < 15; x++) {
