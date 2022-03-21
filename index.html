@@ -5,11 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/main.css" />
+
     <title>Dungeon</title>
   </head>
   <body onload="inicializa();" class="body">
     <canvas id="canvas"></canvas>
     <div class="messages"></div>
+    <div class="modal">
+      <header class="header-list">
+        <h3>Bienvenido a la mazmorra</h3>
+        <img class="image-list" src="./images/close.png" />
+      </header>
+
+      <h4>¿Como se juega?</h4>
+      <p>
+        El juego consiste en alcanzar la puerta, para ello debes conseguir la
+        llave
+      </p>
+      <ul class="list">
+        <li class="list-item">
+          <img src="./images/PJ.png" />
+          <p class="list-paragraph">Este es tu personaje</p>
+        </li>
+        <li class="list-item">
+          <img src="./images/enemies.png" />
+          <p class="list-paragraph">
+            Estos son los enemigos (que deberías esquivar)
+          </p>
+        </li>
+        <li class="list-item">
+          <img src="./images/key.png" />
+          <p class="list-paragraph">Esta es la llave</p>
+        </li>
+        <li class="list-item">
+          <img src="./images/door.png" />
+          <p class="list-paragraph">Esta es la puerta (¡Tu objetivo!)</p>
+        </li>
+      </ul>
+    </div>
     <script src="./js/main.js"></script>
   </body>
 </html>

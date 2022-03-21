@@ -16,6 +16,14 @@ let antorchas = [];
 let tileMap;
 let imagenAntorcha;
 let messages = document.querySelector(".messages");
+const modal = document.querySelector(".modal");
+const close = document.querySelector(".image-list");
+
+const closeModal = () => {
+  modal.classList.add("hidden");
+};
+
+close.addEventListener("click", closeModal);
 const escenario1 = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 0, 2, 2, 0],
@@ -370,7 +378,7 @@ function inicializa() {
     enemigo.push(new malo(7, 7));
     enemigo.push(new malo(8, 3));
   } else if (escenario === escenario4) {
-    enemigo.push(new malo(4, 4)); 
+    enemigo.push(new malo(4, 4));
     enemigo.push(new malo(2, 2));
     enemigo.push(new malo(4, 8));
     enemigo.push(new malo(10, 4));
